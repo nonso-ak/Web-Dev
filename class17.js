@@ -28,15 +28,15 @@ const ages = [33, 12, 20, 16, 5, 54, 21, 44, 61, 13, 15, 45, 25, 64, 32];
 //ForEach
 //companies.forEach((company) => console.log(company.end - company.start));
 
-function minus(){
+function minus(companies){
     console.log(companies.end-companies.start)
 };
 
 function eachCompany(funcA, companies){
     for(let i = 0; i < companies.length; i++){
-        funcA()
+        funcA(companies[i])
     };
-    return funcA()
+    // return funcA()
 };
 eachCompany(minus, companies);
 
@@ -46,3 +46,42 @@ eachCompany(minus, companies);
 //     };
 // });
 // console.table(cannotDrink);
+
+// filter the companies array and give me a new array of companies (retailCompanies) in the retail category.
+
+const retailCompanies = companies.filter(function(companies){
+    if(companies.category === "Retail")
+    return true;
+}
+);
+
+console.log(retailCompanies)
+
+const tenYears = companies.filter(function(companies){
+    if(companies.end - companies.start >= 10){
+        return true;
+    }
+});
+
+console.log(tenYears);
+
+//Map
+const companyRating = companies.map(company => `${companies.name} is a wonderful company.`);
+console.log(companyRating);
+
+//Using a for loop recreate companyRating
+const companyRating2= [];
+    for(let i = 0; i < companies.length; i++){
+         companyRating2.push(`${companies[i].name} is a wonderful company.`)
+    };
+    
+console.log(companyRating2);
+
+//sort
+//Ascending order
+const sortedAges = ages.sort((a, b) => a - b);
+console.log(sortedAges);
+//Descending Order
+const descendingsortedAges = ages.sort((a, b) => b - a);
+console.log(descendingsortedAges);
+//Document Object Model(DOM)

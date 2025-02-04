@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .navbar{
+            width: 100%;
+            padding: 30px 10px;
+            display: flex;
+            background-color: blue;
+            column-gap: 2rem;
+            
+        }
+        .navbar a{
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: grey;
+            color: black;
+        }
+        .active{
+            color: blue;
+        }
+        .list-item{
+            color: blue;
+           
+        }
+        .strikee{
+            color: white;
+            text-decoration: line-through;
+        }
+        .remove{
+            background-color: brown;
+        }
+        .add{
+            background-color: red;
+        }
+        .toggle{
+            background-color: red;
+        }
+        .btn{
+            display: flex;
+            column-gap: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+       <a href="" id="home">Home</a>
+       <a href="" id="blog">Blog</a>
+       <a href="" id="service">Services</a>
+       <a href="" id="contact" class="strikee">Contact us</a>
+    </div>
+    <div class="btn">
+        <button onclick="strike()">click to strike</button>
+        <button onclick="remove()">click to remove red</button>
+        <button onclick="add()">click to add red</button>
+        <button onclick="toggle()">click to toggle red on blog</button>
+    </div>
+    <div style ="padding: 20px; background-color: grey;">
+    <!-- <h1>Counter</h1> -->
+       <h3 id="value">0</h3>
+       <button onclick="inc()" id="inc" style=" cursor:pointer; background-color: green; padding: 8px; border-radius: 20px;">increase</button>
+       <button onclick="dec()" id="dec" style="cursor:pointer; background-color: brown; padding: 8px; border-radius: 20px;">decrease</button>
+       <button onclick="res()" id="res" style="cursor:pointer; background-color: white; padding: 8px; border-radius: 20px;">Reset</button>
+    </div>
+
+ <img src="" id="img" alt="" style="width: 40vh; height: 40vh;">
+<button onclick="changeimg()">add image</button>
+
+<h3>Favourite Dishes</h3>
+<ul id="foods">
+    <li>indomie</li>
+    <li id="ch">chicken</li>
+    <li id="beans">beans</li>
+</ul>
+<button style="background-color: red;">strike</button>
+
+
+    <script>
+        let incbtn = document.getElementById("inc")
+        let decbtn = document.getElementById("dec")
+        let resbtn = document.getElementById("res")
+
+        console.log(incbtn.hasAttribute('style'))
+        incbtn.setAttribute('class', 'active')
+        console.log(incbtn.getAttribute('style'))
+        incbtn.setAttribute('style', 'color: purple; background-color: green;')
+
+        const images = ['img/portrait-young-handsome-man.jpg']
+        function changeimg(){
+            const image = document.getElementById('img')
+            img.setAttribute('src', images[0])
+        }
+
+        //Creating Elements
+        const li = document.createElement('li')
+        li.textContent = 'Amala & Ewedu'
+        const foods =document.getElementById('foods');
+        foods.append(li);
+        const beanss = document.getElementById('bean')
+        beans.textContent = 'Garri'
+        //look up the difference between innerText, innerHtml and Textcontent\
+
+        const ul2 = document.querySelector('ul')
+        //Traversing the Dom
+        //Child Node traversal
+         console.log(ul2.childNodes);
+         console.log(ul2.children);
+         console.log(ul2.firstChild);
+         console.log(ul2.lastChild);
+         console.log(ul2.firstElementChild);
+         console.log(ul2.lastElementChild);
+
+         //Parent Node Traversal
+         console.log(ul2.parentNode)
+         console.log(ul2.parentElement)
+
+         //Sibling Node Traversal
+         console.log(li.previousSibling)
+         console.log(li.nextSibling)
+         console.log(li.previousElementSibling)
+         console.log(li.nextElementSibling)
+
+         //Removing Elements
+         document.getElementById('ch').remove()
+
+         // Modifying classes
+         const li2 = document.createElement('li');
+         li2.textContent = "bread";
+         ul2.append(li2);
+         li2.classList.add('list-item');
+         li2.classList.remove('strike')
+         li.classList.add('list-item');
+         li.classList.remove('list-item')
+
+        //  function strike(){
+        //    a.classList.toggle('strikee')
+        //  }
+
+
+         const hom = document.getElementById('home')
+         const blo = document.getElementById('blog')
+         const serv = document.getElementById('service')
+         const conta = document.getElementById('contact')
+
+         function strike(){
+            conta.classList.toggle('strikee')
+         }
+         function remove(){
+            hom.classList.toggle('remove')
+         }
+         function add(){
+            serv.classList.toggle('add')
+         }
+        function toggle(){
+            blo.classList.toggle('toggle')
+        }
+    </script>
+</body>
+</html>

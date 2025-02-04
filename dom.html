@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="dom">Understanding The DOM</h1>
+    <nav id="navbar">
+        <a href="">contact</a>
+        <a href="">about</a>
+        <a href="">log in</a>
+    </nav>
+    <h2>Our Services</h2>
+    <ul>
+        <li class="service">Data Analysis</li>
+        <li class="service">Project Management</li>
+        <li class="service">Graphics Design</li>
+        <li class="service">Virtual Assistant</li>
+    </ul>
+    <script>
+     
+        /*DOM(Document Object Model): Represents all page contents as objects that can be modified.
+        The document object is the main "entry point to the page. We can change anything on the page using it."
+        */
+       
+        //document.body.style.background = `${prompt("input the color you want")}`
+
+        //Propmt the user to enter a desired color then, make that the background color.
+        //Create an array of 7-10 colors and after every 2 seconds the background should change.
+
+        function changeColours(){
+        const colors = ["blue", "red", "white", "green", "yellow", "purple", "black"];
+        // for(let i = 0; i < colors.length; i++){
+          let i = 0
+            setInterval(() => {
+                document.body.style.backgroundColor = colors[i]
+                i === colors.length ? i=0 : i++
+            }, 3000)    
+        // };
+     };
+
+    changeColours()
+
+    //selecting Elements
+    //Using ID names
+    let header = document.getElementById("dom");
+    header.style.color = "blue";
+    
+    //Using Query selector
+   // const navbar = document.querySelector("#navbar ");
+    const navbarA = document.querySelector("#navbar a");
+    const navbarA2 = document.querySelectorAll("#navbar a");
+
+    navbarA.style.backgroundColor = "grey";
+    navbarA.style.padding = "25px";
+    console.log(navbarA)
+    console.log(navbarA2)
+
+    
+    for(let i = 0; i < navbarA2; i++){
+        navbarA2[i].style.backgroundColor = "grey";
+        navbarA2[i].style.padding = "25px";
+    }
+
+    //Using Class Names
+    const service = document.getElementsByClassName('service');
+    console.log(service); //style the 3rd service bg. font
+    service[2].style.fontSize = "25px"
+
+    //using Tag Names
+    const btns = document.getElementsByTagName("button");
+    console.log(btns);
+
+    //Javascript Project Ideas
+    /*
+    slider
+    */
+        
+    </script>
+    
+</body>
+</html>
