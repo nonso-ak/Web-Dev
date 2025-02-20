@@ -28,7 +28,7 @@ try{
 }
 
 /*Using the fetc function 
-Fetch -- Is a function used for make=ing HTTP requests to fetch resources (images, files, JSON style data, etc) It simplifies asynchronous data fetching in javascript, and it is used for interacting with API's to retrieve and send data asynchronously over the web.
+Fetch -- Is a function used for makeing HTTP requests to fetch resources (images, files, JSON style data, etc) It simplifies asynchronous data fetching in javascript, and it is used for interacting with API's to retrieve and send data asynchronously over the web.
 syntax: fetch(url, {options})
 options can be HTTP methods like out, post, delete and get. The default is get. {method: "Get"}.
 e.g let randomimg = fetch('https://random.imgecdn.app/500/150') or let img2 = fetch('https://picsum.photos/200/300')

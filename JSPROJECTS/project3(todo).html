@@ -1,0 +1,278 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+    <div class="input-section">
+        <h1 style="color: white;">Todo list</h1>
+        <input type="text" placeholder="Enter task" id="input"> <button id="add">Add task</button>
+        <div class="task-carrier" id="tasks">
+            <h1></h1>
+        </div>
+    </div>
+    <div class="button-container">
+        <button id="complete" onclick="completed(), addcomplete(), deletecomplete(), taskcarriercomplete(), editcomplete()">Complete</button>
+        <button id="edit">Edit task</button>
+        <button id="delete">Delete task</button>
+    </div>
+    
+    </div>
+    
+
+    <style>
+        .container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            column-gap: 2em;
+            margin-top: 70px;
+            background-color: rgb(50, 50, 50);
+            width: 90vh;
+            height: 50vh;
+            margin-left: 70vh;
+             border-radius: 10px;
+             padding: 10px 20px;
+        }
+        .button-container{
+            display: flex;
+            flex-direction: column;
+            row-gap: 1rem;
+            margin-top: 40px;
+        }
+        .button-container button{
+            background-color: black;
+            padding: 7px 10px;
+            border-radius: 6px;
+            border: 1px solid black;
+            color: white;
+        }
+        .input-section{
+            margin-bottom: 30px;
+        }
+        .input-section input{
+            padding: 7px 10px;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+        .input-section button{
+            background-color: black;
+            padding: 7px 10px;
+            border-radius: 6px;
+            border: 1px solid black;
+            color: white;
+        }
+        .strike{
+            text-decoration: line-through;
+            color: black;
+        }
+        .task-carrier{
+            margin-top: 15px;
+            font-size: 25px;
+        }
+        body{
+            background-image: url(../img/50435_5f8b4a682b9bb09ec3bac28d2ea4ad47.jpg);
+            background-size: cover;
+        }
+    </style>
+
+    <script>
+      const add = document.getElementById('add');
+      const complete = document.getElementById('complete');
+      const edit = document.getElementById('edit');
+      const delet = document.getElementById('delete');
+      const taskcarrier = document.getElementById('tasks')
+      const input = document.getElementById('input')
+
+
+      add.addEventListener('click', function(){
+        const inputvalue = input.value
+        localStorage.setItem("storedvalue", inputvalue);
+        taskcarrier.textContent = localStorage.getItem("storedvalue")
+        input.value = '';
+
+});
+    edit.addEventListener('click', function(){
+        taskcarrier.textContent = localStorage.getItem("storedvalue")
+        let value = taskcarrier.textContent
+        let newValue = prompt("Edit the value:", value);
+
+        if(newValue !== null){
+            taskcarrier.textContent = newValue;
+        }else{
+            console.log("Edit cancelled")
+        } 
+    })
+
+      function completed(){
+        complete.classList.add('strike')
+      }
+      function addcomplete(){
+        add.classList.add('strike')
+      }
+      function deletecomplete(){
+        delet.classList.add('strike')
+      }
+      function editcomplete(){
+        edit.classList.add('strike')
+      }
+      function taskcarriercomplete(){
+        taskcarrier.classList.add('strike')
+      }
+
+    
+    </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        #taskInput {
+            flex: 1;
+            padding: 8px;
+        }
+        button {
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+        .edit-mode {
+            background-color: #f0f0f0;
+        }
+        .button-group {
+            display: flex;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Todo List</h1>
+    <div class="input-container">
+        <input type="text" id="taskInput" placeholder="Enter a new task">
+        <button onclick="addTask()">Add Task</button>
+    </div>
+    <div id="taskList"></div>
+
+    <script>
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        let editingId = null;
+
+        // Initial render
+        renderTasks();
+
+        function addTask() {
+            const input = document.getElementById('taskInput');
+            const text = input.value.trim();
+            
+            if (text === '') return;
+
+            if (editingId !== null) {
+                // Update existing task
+                const taskIndex = tasks.findIndex(task => task.id === editingId);
+                if (taskIndex !== -1) {
+                    tasks[taskIndex].text = text;
+                    editingId = null;
+                }
+            } else {
+                // Add new task
+                const newTask = {
+                    id: Date.now(),
+                    text: text,
+                    completed: false
+                };
+                tasks.push(newTask);
+            }
+
+            input.value = '';
+            saveTasks();
+            renderTasks();
+        }
+
+        function deleteTask(id) {
+            tasks = tasks.filter(task => task.id !== id);
+            saveTasks();
+            renderTasks();
+        }
+
+        function toggleComplete(id) {
+            tasks = tasks.map(task =>
+                task.id === id ? { ...task, completed: !task.completed } : task
+            );
+            saveTasks();
+            renderTasks();
+        }
+
+        function editTask(id) {
+            editingId = id;
+            const task = tasks.find(task => task.id === id);
+            const input = document.getElementById('taskInput');
+            input.value = task.text;
+            input.focus();
+            renderTasks();
+        }
+
+        function saveTasks() {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        function renderTasks() {
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+
+            tasks.forEach(task => {
+                const taskElement = document.createElement('div');
+                taskElement.className = `task-item ${task.completed ? 'completed' : ''} ${task.id === editingId ? 'edit-mode' : ''}`;
+                
+                taskElement.innerHTML = `
+                    <span>${task.text}</span>
+                    <div class="button-group">
+                        <button onclick="toggleComplete(${task.id})">
+                            ${task.completed ? 'Uncomplete' : 'Complete'}
+                        </button>
+                        <button onclick="editTask(${task.id})">Edit</button>
+                        <button onclick="deleteTask(${task.id})">Delete</button>
+                    </div>
+                `;
+                
+                taskList.appendChild(taskElement);
+            });
+        }
+
+        // Add event listener for Enter key
+        document.getElementById('taskInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addTask();
+            }
+        });
+    </script>
+</body>
+</html>

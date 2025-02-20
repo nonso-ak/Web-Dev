@@ -28,3 +28,4 @@ let num3Float = parseFloat(num3)
 
 console.log(num3Int)
 console.log (num3Float)
+

@@ -1,0 +1,140 @@
+<!-- drag and drop with 5 drop zones and 1 pictue and a link that can get image from ur laptop files -->
+<!-- to-do list with local storage and four buttons, add task,completed, edit, delete -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop</title>
+</head>
+<body>
+    <h1>Drag and Drop Image</h1>
+    <div class="input">
+    <input type="file" id="fileInput">
+     <img id="image" src="" alt="" draggable="true"> 
+    </div>
+    
+    <div class="drop-zones">
+        <div class="drop-zone" id="dropZone1"></div>
+        <div class="drop-zone" id="dropZone2"></div>
+        <div class="drop-zone" id="dropZone3"></div>
+        <div class="drop-zone" id="dropZone4"></div>
+        <div class="drop-zone" id="dropZone5"></div>
+    </div>
+
+    
+</body>
+</html>
+<style>
+    body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    cursor: grab;
+    border: 1px solid black;
+} 
+
+.drop-zones {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.drop-zone {
+    width: 100px;
+    height: 100px;
+    border: 2px dashed black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.drop-zone img {
+    max-width: 100%;
+    max-height: 100%;
+}
+input{
+    height: 100px;
+    border: 1px dashed black;
+    display: flex;
+    align-items: center;
+}
+</style>
+
+<script>
+
+const drop1 = document.getElementById('dropZone1')
+const drop2 = document.getElementById('dropZone2')
+const drop3 = document.getElementById('dropZone3')
+const drop4 = document.getElementById('dropZone4')
+const drop5 = document.getElementById('dropZone5')
+const img   = document.getElementById('image')
+const files = document.getElementById('fileInput')
+
+ files.addEventListener('change', function(event) {
+   let file = event.target.files[0];//the event object has a property known as target which refers to the element that triggered the event in this case it is input and then target has a property known as files which returns a file list and the index 0 because the first file will be selected
+   let reader = new FileReader();//filereader is an object used in reading files and it has methods that can be used to read files
+   reader.onload = function(e) {//reader.onload is a property of the filereader object and is a callback function and is also an event handler that receves an event as an argument
+        img.src = e.target.result;//this is the result of the file reading operation which simply gives access to the file contents
+    };
+    reader.readAsDataURL(file);//this filereader method ensures the file is an image
+ });
+
+    img.addEventListener("dragstart", function(event){
+          event.dataTransfer.setData("image", event.target.id);
+        });
+     
+      drop1.addEventListener("dragover", function(event){
+            event.preventDefault();
+        });
+     drop1.addEventListener("drop", function(event){
+            //event.preventDefault();
+            let data = event.dataTransfer.getData("image");
+            event.target.appendChild(document.getElementById(data));
+        });
+
+        drop2.addEventListener("dragover", function(event){
+            event.preventDefault();
+        });
+     drop2.addEventListener("drop", function(event){
+            //event.preventDefault();
+            let data = event.dataTransfer.getData("image");
+            event.target.appendChild(document.getElementById(data));
+        });
+
+        drop3.addEventListener("dragover", function(event){
+            event.preventDefault();
+        });
+     drop3.addEventListener("drop", function(event){
+            //event.preventDefault();
+            let data = event.dataTransfer.getData("image");
+            event.target.appendChild(document.getElementById(data));
+        });
+
+        drop4.addEventListener("dragover", function(event){
+            event.preventDefault();
+        });
+     drop4.addEventListener("drop", function(event){
+            //event.preventDefault();
+            let data = event.dataTransfer.getData("image");
+            event.target.appendChild(document.getElementById(data));
+        });
+
+        drop5.addEventListener("dragover", function(event){
+            event.preventDefault();
+        });
+     drop5.addEventListener("drop", function(event){
+            //event.preventDefault();
+            let data = event.dataTransfer.getData("image");
+            event.target.appendChild(document.getElementById(data));
+        });
+</script>
